@@ -21,7 +21,7 @@ public class GunMoveManager : MonoBehaviour
     [Space]
     [SerializeField] float _AngleLimit;
 
-    [HideInInspector]
+    //[HideInInspector]
     public float _mouseAngle;
 
     float _playerScale;
@@ -61,8 +61,16 @@ public class GunMoveManager : MonoBehaviour
 
     void GunHold(Vector3 mousePosition)
     {
+        if (Controller._playerMode == PlayerController.PlayerMode.Normal)
+        {
         _mouseAngle = Mathf.Atan2(mousePosition.y - ShoulderPosition.position.y, mousePosition.x - ShoulderPosition.position.x) * Mathf.Rad2Deg;
         _mouseAngle = AngleMath(_mouseAngle);
+        } else
+        {
+            _mouseAngle = mousePosition.x - ShoulderPosition.position.x > 0 ? -20 : -160;
+        }
+        
+        
         float mouseAngleRadians = _mouseAngle * Mathf.Deg2Rad;
 
         GunPosition.position = ShoulderPosition.position + _shoulderOffset + new Vector3(Mathf.Cos(mouseAngleRadians) * _gunDistance, Mathf.Sin(mouseAngleRadians) * _gunDistance, 0f);
@@ -74,13 +82,11 @@ public class GunMoveManager : MonoBehaviour
     void Update()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (Controller._playerMode == PlayerController.PlayerMode.Normal)
-        {
-            GunHold(mousePosition);
-        }
+
+        GunHold(mousePosition);
 
 
-        if (mousePosition.x - ShoulderPosition.position.x < 0)
+if (mousePosition.x - ShoulderPosition.position.x < 0)
         {
             Player.transform.localScale = new Vector3(-_playerScale, Player.transform.localScale.y);
             GunPosition.localScale = new Vector2(-_gunScale.x, -_gunScale.y);

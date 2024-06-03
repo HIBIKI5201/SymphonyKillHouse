@@ -52,10 +52,21 @@ public class PlayerController : MonoBehaviour
             {
                 playerAnimator.SetBool("Move", true);
                 playerAnimator.SetBool("MoveBack", false);
+
+                if (_playerMode == PlayerMode.Running)
+                {
+                    playerAnimator.SetBool("Run", true);
+                }
             } else
             {
                 playerAnimator.SetBool("MoveBack", true);
                 playerAnimator.SetBool("Move", false);
+
+                if (_playerMode == PlayerMode.Running)
+                {
+                    playerAnimator.SetBool("Run", false);
+                    _playerMode = PlayerMode.Normal;
+                }
             }
         }
         else
@@ -64,13 +75,13 @@ public class PlayerController : MonoBehaviour
 
             playerAnimator.SetBool("Move", false);
             playerAnimator.SetBool("MoveBack", false);
-
+            playerAnimator.SetBool("Run", false);
             _playerMode = PlayerMode.Normal;
         }
 
         Camera.transform.position = Player.transform.position + _cameraPosition;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Mathf.Sign(horizontal) == Mathf.Sign(transform.localScale.x))
         {
             _playerMode = PlayerMode.Running;
         }
