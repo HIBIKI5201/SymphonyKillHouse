@@ -67,16 +67,17 @@ public class GunMoveManager : MonoBehaviour
         _mouseAngle = AngleMath(_mouseAngle);
         } else
         {
-            _mouseAngle = mousePosition.x - ShoulderPosition.position.x > 0 ? -20 : -160;
+            _mouseAngle = transform.localScale.x > 0 ? -20 : -160;
         }
         
         
         float mouseAngleRadians = _mouseAngle * Mathf.Deg2Rad;
 
         GunPosition.position = ShoulderPosition.position + _shoulderOffset + new Vector3(Mathf.Cos(mouseAngleRadians) * _gunDistance, Mathf.Sin(mouseAngleRadians) * _gunDistance, 0f);
-        GunPosition.eulerAngles = new Vector3(0f, 0f, _mouseAngle + _angleOffset);
 
-        LeftHand.eulerAngles = new Vector3(0f, 0f, _mouseAngle + _angleOffset);
+        float angleOffsetDelta = transform.localScale.x > 0 ? _angleOffset : -_angleOffset;
+        GunPosition.eulerAngles = new Vector3(0f, 0f, _mouseAngle + angleOffsetDelta);
+        LeftHand.eulerAngles = new Vector3(0f, 0f, _mouseAngle + angleOffsetDelta);
     }
 
     void Update()
@@ -86,15 +87,18 @@ public class GunMoveManager : MonoBehaviour
         GunHold(mousePosition);
 
 
-if (mousePosition.x - ShoulderPosition.position.x < 0)
+        if (Controller._playerMode == PlayerController.PlayerMode.Normal)
         {
-            Player.transform.localScale = new Vector3(-_playerScale, Player.transform.localScale.y);
-            GunPosition.localScale = new Vector2(-_gunScale.x, -_gunScale.y);
-        }
-        else
-        {
-            Player.transform.localScale = new Vector3(_playerScale, Player.transform.localScale.y);
-            GunPosition.localScale = new Vector2(_gunScale.x, _gunScale.y);
-        }
+            if (mousePosition.x - ShoulderPosition.position.x < 0)
+            {
+                Player.transform.localScale = new Vector3(-_playerScale, Player.transform.localScale.y);
+                GunPosition.localScale = new Vector2(-_gunScale.x, -_gunScale.y);
+            }
+            else
+            {
+                Player.transform.localScale = new Vector3(_playerScale, Player.transform.localScale.y);
+                GunPosition.localScale = new Vector2(_gunScale.x, _gunScale.y);
+            }
+        }    
     }
 }

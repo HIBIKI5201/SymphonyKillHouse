@@ -61,12 +61,6 @@ public class PlayerController : MonoBehaviour
             {
                 playerAnimator.SetBool("MoveBack", true);
                 playerAnimator.SetBool("Move", false);
-
-                if (_playerMode == PlayerMode.Running)
-                {
-                    playerAnimator.SetBool("Run", false);
-                    _playerMode = PlayerMode.Normal;
-                }
             }
         }
         else
