@@ -1768,12 +1768,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08fcc7e568251348988a14c96086e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 1356954104}
+  Controller: {fileID: 1356954118}
   GunPosition: {fileID: 1574065486}
   ShoulderPosition: {fileID: 1356954114}
   LeftHand: {fileID: 518438849}
-  maxAngle: 70
-  minAngle: -70
-  mouseAngle: 0
+  _shoulderOffset: {x: 0, y: 0.1, z: 0}
+  _angleOffset: 1.5
+  _AngleLimit: 70
+  _mouseAngle: 0
 --- !u!114 &1356954118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1792,6 +1795,8 @@ MonoBehaviour:
   playerRB: {fileID: 1356954120}
   playerAnimator: {fileID: 1356954116}
   _moveSpeed: 5
+  _runSpeed: 2
+  _playerMode: 0
 --- !u!61 &1356954119
 BoxCollider2D:
   m_ObjectHideFlags: 0
