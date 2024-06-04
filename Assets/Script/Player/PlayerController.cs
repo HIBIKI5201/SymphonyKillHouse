@@ -23,22 +23,24 @@ public class PlayerController : MonoBehaviour
     public PlayerMode _playerMode;
     public enum PlayerMode
     {
-        Normal,
-        Running
+        Wait,
+        Walk,
+        Running,
+        Crouching
     }
 
     void Start()
     {
-        _playerMode = PlayerMode.Normal;
+        _playerMode = PlayerMode.Wait;
     }
 
 
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
-        if (horizontal != 0)
+        if (_playerMode == PlayerMode.Walk || _playerMode == PlayerMode.Running)
         {
-            if (_playerMode == PlayerMode.Normal)
+            if (_playerMode == PlayerMode.Walk)
             {
                 playerRB.velocity = new Vector2(_moveSpeed * horizontal, playerRB.velocity.y);
             }
@@ -70,14 +72,32 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("Move", false);
             playerAnimator.SetBool("MoveBack", false);
             playerAnimator.SetBool("Run", false);
-            _playerMode = PlayerMode.Normal;
         }
 
         Camera.transform.position = Player.transform.position + _cameraPosition;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Mathf.Sign(horizontal) == Mathf.Sign(transform.localScale.x))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A) && _playerMode != PlayerMode.Crouching)
         {
-            _playerMode = PlayerMode.Running;
+            if (Mathf.Sign(horizontal) == Mathf.Sign(transform.localScale.x) && Input.GetKey(KeyCode.LeftShift))
+            {
+                _playerMode = PlayerMode.Running;
+
+                Debug.Log("StartRun");
+            }
+
+            if (_playerMode != PlayerMode.Running)
+            {
+                _playerMode = PlayerMode.Walk;
+                Debug.Log("StartWalk");
+            }
+        } else
+        {
+            _playerMode = PlayerMode.Wait;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            _playerMode = PlayerMode.Crouching;
         }
     }
 }

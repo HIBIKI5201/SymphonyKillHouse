@@ -37,6 +37,7 @@ public class GunMoveManager : MonoBehaviour
         _playerScale = Player.transform.lossyScale.x;
         _gunScale = GunPosition.localScale;
     }
+
     float AngleMath(float mouseAngle)
     {
         if (Mathf.Abs(mouseAngle) > 180 - _AngleLimit)
@@ -63,7 +64,7 @@ public class GunMoveManager : MonoBehaviour
 
     void GunHold(Vector3 mousePosition)
     {
-        if (Controller._playerMode == PlayerController.PlayerMode.Normal)
+        if ( Controller._playerMode != PlayerController.PlayerMode.Running)
         {
         _mouseAngle = Mathf.Atan2(mousePosition.y - ShoulderPosition.position.y, mousePosition.x - ShoulderPosition.position.x) * Mathf.Rad2Deg;
         _mouseAngle = AngleMath(_mouseAngle);
@@ -93,7 +94,7 @@ public class GunMoveManager : MonoBehaviour
         }
 
 
-        if (Controller._playerMode == PlayerController.PlayerMode.Normal)
+        if (Controller._playerMode != PlayerController.PlayerMode.Running)
         {
             if (mousePosition.x - ShoulderPosition.position.x < 0)
             {
