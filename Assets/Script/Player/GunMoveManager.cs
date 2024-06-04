@@ -20,9 +20,11 @@ public class GunMoveManager : MonoBehaviour
     [SerializeField] float _angleOffset;
     [Space]
     [SerializeField] float _AngleLimit;
+    [HideInInspector] public float _mouseAngle;
 
-    //[HideInInspector]
-    public float _mouseAngle;
+    [Header("ç◊Ç©Ç¢í≤êÆ")]
+    [SerializeField] float _gunHoldLimit;
+    float frameCounter;
 
     float _playerScale;
     Vector2 _gunScale;
@@ -84,7 +86,11 @@ public class GunMoveManager : MonoBehaviour
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        GunHold(mousePosition);
+        frameCounter = (frameCounter + 1) % _gunHoldLimit;
+        if (frameCounter == 0)
+        {
+            GunHold(mousePosition);
+        }
 
 
         if (Controller._playerMode == PlayerController.PlayerMode.Normal)
