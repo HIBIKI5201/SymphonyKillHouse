@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject Camera;
     [SerializeField] Vector3 _cameraPosition;
 
-    [Header("コンポーネント")]
+    [Header("プレイヤーコンポーネント")]
     [SerializeField] Rigidbody2D playerRB;
     [SerializeField] Animator playerAnimator;
 
@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
         Running,
         Crouching
     }
+
+    [Header("操作コンポーネント")]
+    [SerializeField] GunShootManager gunShootManager;
 
     void Start()
     {
@@ -98,6 +101,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         {
             _playerMode = PlayerMode.Crouching;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            gunShootManager.Shoot();
         }
     }
 }
