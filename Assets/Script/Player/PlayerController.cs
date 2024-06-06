@@ -120,9 +120,16 @@ public class PlayerController : MonoBehaviour
             _playerMode = PlayerMode.Crouching;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && _playerMode != PlayerMode.Running)
         {
+            if (gunShootManager._remainBullets > 0)
+            {
             StartCoroutine(gunShootManager.Shoot());
+            } else
+            {
+                Debug.Log("ÉäÉçÅ[Éh");
+                gunShootManager._remainBullets = 30;
+            }
         }
     }
 }
