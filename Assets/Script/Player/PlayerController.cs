@@ -54,35 +54,38 @@ public class PlayerController : MonoBehaviour
                 playerRB.velocity = new Vector2(_moveSpeed * horizontal * _runSpeed, playerRB.velocity.y);
             }
 
-
-            if (Mathf.Sign(horizontal) == Mathf.Sign(transform.localScale.x))
+            if (horizontal != 0)
             {
-                playerAnimator.SetBool("Move", true);
-                playerAnimator.SetBool("MoveBack", false);
+                if (Mathf.Sign(horizontal) == Mathf.Sign(transform.localScale.x))
+                {
+                    playerAnimator.SetBool("Move", true);
+                    playerAnimator.SetBool("MoveBack", false);
+                }
+                else
+                {
+                    playerAnimator.SetBool("MoveBack", true);
+                    playerAnimator.SetBool("Move", false);
+                }
+
+                if (_playerMode == PlayerMode.Running)
+                {
+                    playerAnimator.SetBool("Run", true);
+                }
+                else
+                {
+                    playerAnimator.SetBool("Run", false);
+                }
             }
             else
             {
-                playerAnimator.SetBool("MoveBack", true);
+                playerRB.velocity = new Vector2(0, playerRB.velocity.y);
+
                 playerAnimator.SetBool("Move", false);
-            }
-
-            if (_playerMode == PlayerMode.Running)
-            {
-                playerAnimator.SetBool("Run", true);
-            }
-            else
-            {
+                playerAnimator.SetBool("MoveBack", false);
                 playerAnimator.SetBool("Run", false);
             }
         }
-        else
-        {
-            playerRB.velocity = new Vector2(0, playerRB.velocity.y);
 
-            playerAnimator.SetBool("Move", false);
-            playerAnimator.SetBool("MoveBack", false);
-            playerAnimator.SetBool("Run", false);
-        }
         
         if (_playerMode == PlayerMode.Crouching)
         {

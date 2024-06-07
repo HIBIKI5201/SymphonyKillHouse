@@ -29,6 +29,8 @@ public class GunShootManager : MonoBehaviour
 
         _remainBullets--;
 
+        Debug.Log(_remainBullets);
+
         MazzleFlash.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         MazzleFlash.gameObject.SetActive(false);
