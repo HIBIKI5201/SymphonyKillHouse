@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Versioning;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [Header("ステータス")]
     [SerializeField] float _moveSpeed;
     [SerializeField] float _runSpeed;
+    float horizontal;
 
     public PlayerMode _playerMode;
     public enum PlayerMode
@@ -37,12 +39,8 @@ public class PlayerController : MonoBehaviour
         _playerMode = PlayerMode.Wait;
     }
 
-
-    void Update()
+    void MoveAndAnimation()
     {
-        Camera.transform.position = Player.transform.position + _cameraPosition;
-
-        float horizontal = Input.GetAxisRaw("Horizontal");
         if (_playerMode == PlayerMode.Walk || _playerMode == PlayerMode.Running)
         {
             if (_playerMode == PlayerMode.Walk)
@@ -76,26 +74,46 @@ public class PlayerController : MonoBehaviour
                     playerAnimator.SetBool("Run", false);
                 }
             }
-            else
-            {
-                playerRB.velocity = new Vector2(0, playerRB.velocity.y);
-
-                playerAnimator.SetBool("Move", false);
-                playerAnimator.SetBool("MoveBack", false);
-                playerAnimator.SetBool("Run", false);
-            }
         }
+        else
+        {
+            playerRB.velocity = new Vector2(0, playerRB.velocity.y);
 
-        
+            playerAnimator.SetBool("Move", false);
+            playerAnimator.SetBool("MoveBack", false);
+            playerAnimator.SetBool("Run", false);
+        }
+    }
+
+    void Action()
+    {
         if (_playerMode == PlayerMode.Crouching)
         {
             playerAnimator.SetBool("Crouching", true);
-        } else
+        }
+        else
         {
             playerAnimator.SetBool("Crouching", false);
         }
 
 
+
+        if (Input.GetMouseButtonDown(0) && _playerMode != PlayerMode.Running)
+        {
+            if (gunShootManager._remainBullets > 0)
+            {
+                StartCoroutine(gunShootManager.Shoot());
+            }
+            else
+            {
+                Debug.Log("リロード");
+                gunShootManager._remainBullets = 30;
+            }
+        }
+    }
+
+    void ChangePlayerMode()
+    {
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A) && _playerMode != PlayerMode.Crouching)
         {
             if (Mathf.Sign(horizontal) == Mathf.Sign(transform.localScale.x) && Input.GetKeyDown(KeyCode.LeftShift))
@@ -103,7 +121,8 @@ public class PlayerController : MonoBehaviour
                 if (_playerMode != PlayerMode.Running)
                 {
                     _playerMode = PlayerMode.Running;
-                } else
+                }
+                else
                 {
                     _playerMode = PlayerMode.Walk;
                 }
@@ -113,26 +132,25 @@ public class PlayerController : MonoBehaviour
             {
                 _playerMode = PlayerMode.Walk;
             }
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            _playerMode = PlayerMode.Crouching;
         } else
         {
             _playerMode = PlayerMode.Wait;
         }
+    }
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            _playerMode = PlayerMode.Crouching;
-        }
 
-        if (Input.GetMouseButtonDown(0) && _playerMode != PlayerMode.Running)
-        {
-            if (gunShootManager._remainBullets > 0)
-            {
-            StartCoroutine(gunShootManager.Shoot());
-            } else
-            {
-                Debug.Log("リロード");
-                gunShootManager._remainBullets = 30;
-            }
-        }
+    void Update()
+    {
+        Camera.transform.position = Player.transform.position + _cameraPosition;
+
+        horizontal = Input.GetAxisRaw("Horizontal");
+
+        ChangePlayerMode();
+        MoveAndAnimation();
+        Action();
     }
 }

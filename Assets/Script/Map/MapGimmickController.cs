@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MapGimmikController : MonoBehaviour
 {
+    public bool _onActive = false;
+
     public GimmickKind _GimmickKind;
     public enum GimmickKind
     {

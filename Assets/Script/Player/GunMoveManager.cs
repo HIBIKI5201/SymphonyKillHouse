@@ -16,20 +16,30 @@ public class GunMoveManager : MonoBehaviour
     [SerializeField] Transform LeftHand;
 
     [Header("ポジション調整")]
-    [SerializeField] Vector3 _shoulderOffset;
+
+    [SerializeField, Tooltip("肩の位置の微調整")] Vector3 _shoulderOffset;
+    ///<summary> アングルの微調整 </summary>
     [SerializeField] float _angleOffset;
     [Space]
+
+
+    ///<summary>向ける最大と最小の角度</summary>
     [SerializeField] float _AngleLimit;
+
     [HideInInspector] public float _mouseAngle;
 
+    float _gunDistance;
+
     [Header("細かい調整")]
+
+    ///<summary>一秒間に銃の移動が実行される回数</summary>
     [SerializeField] float _gunHoldLimit;
     float frameCounter;
 
     float _playerScale;
     Vector2 _gunScale;
 
-    float _gunDistance;
+
 
     void Start()
     {
