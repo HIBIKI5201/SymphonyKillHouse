@@ -80,7 +80,7 @@ public class GunMoveManager : MonoBehaviour
 
         float angleOffsetDelta = transform.localScale.x > 0 ? _angleOffset : -_angleOffset;
         GunPosition.eulerAngles = new Vector3(0f, 0f, _mouseAngle + angleOffsetDelta);
-        LeftHand.eulerAngles = new Vector3(0f, 0f, _mouseAngle + angleOffsetDelta);
+        LeftHand.eulerAngles = new Vector3(0f, 0f, transform.localScale.x > 0 ? _mouseAngle : (_mouseAngle + 180) + angleOffsetDelta);
     }
 
     void Update()
