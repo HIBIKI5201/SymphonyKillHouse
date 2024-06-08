@@ -1,9 +1,11 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapGimmikController : MonoBehaviour
 {
+    [SerializeField] Transform GimmickObjectTransform;
     public bool _onActive = false;
 
     public GimmickKind _GimmickKind;
@@ -17,9 +19,28 @@ public class MapGimmikController : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RotateDoor()
     {
-        
+        _onActive = true;
+
+        Collider2D selfCollider = GetComponent<Collider2D>();
+        if (!selfCollider.isTrigger)
+        {
+            Debug.Log("ドアをオープン");
+            
+            GimmickObjectTransform.DORotate(Vector3.up * -90f, 2f)
+                .OnComplete(() =>
+                {
+                    selfCollider.isTrigger = true;
+                    _onActive = false;
+                });
+        } else
+        {
+            Debug.Log("ドアをクローズ");
+
+            Tween MoveDoor = GimmickObjectTransform.DORotate(Vector3.up * 0, 2f)
+                .OnPlay(() => selfCollider.isTrigger = false)
+                .OnComplete(() => _onActive = false);
+        }
     }
 }

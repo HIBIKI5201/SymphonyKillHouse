@@ -5,17 +5,23 @@ using UnityEngine;
 public class GunShootManager : MonoBehaviour
 {
     [Header("弾丸ステータス")]
-    [SerializeField] GameObject Bullet;
+    [SerializeField]
+    GameObject Bullet;
     [Space]
-    [SerializeField] float _bulletSpeed;
+
+    [SerializeField]
+    float _bulletSpeed;
 
     [Header("ライフルステータス")]
-    [SerializeField] float _magazineSize;
+    [SerializeField]
+    float _magazineSize;
     public float _remainBullets;
 
     [Header("マズルポジション")]
-    [SerializeField] Transform MuzzlePos;
-    [SerializeField] GameObject MazzleFlash;
+    [SerializeField]
+    Transform MuzzlePos;
+    [SerializeField]
+    GameObject MazzleFlash;
 
     void Start()
     {

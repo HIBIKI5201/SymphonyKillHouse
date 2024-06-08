@@ -7,21 +7,30 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 public class PlayerController : MonoBehaviour
 {
     [Header("プレイヤー")]
-    [SerializeField] GameObject Player;
+    [SerializeField]
+    GameObject Player;
 
     [Header("カメラ")]
-    [SerializeField] GameObject Camera;
-    [SerializeField] Vector3 _cameraPosition;
+    [SerializeField]
+    GameObject Camera;
+    [SerializeField]
+    Vector3 _cameraPosition;
 
     [Header("プレイヤーコンポーネント")]
-    [SerializeField] Rigidbody2D playerRB;
-    [SerializeField] Animator playerAnimator;
+    [SerializeField]
+    Rigidbody2D playerRB;
+    [SerializeField]
+    Animator playerAnimator;
 
     [Header("ステータス")]
-    [SerializeField] float _moveSpeed;
-    [SerializeField] float _runSpeed;
+    [SerializeField,Tooltip("移動速度")]
+    float _moveSpeed;
+    [SerializeField,Tooltip("ダッシュ時の移動速度倍率")]
+    float _runSpeed;
+    [Tooltip("入力されている水平の方向")]
     float horizontal;
 
+    [Tooltip("プレイヤーの状態を表す")]
     public PlayerMode _playerMode;
     public enum PlayerMode
     {
@@ -32,11 +41,23 @@ public class PlayerController : MonoBehaviour
     }
 
     [Header("操作コンポーネント")]
-    [SerializeField] GunShootManager gunShootManager;
+    [SerializeField]
+    GunShootManager gunShootManager;
 
     void Start()
     {
         _playerMode = PlayerMode.Wait;
+    }
+
+    void Update()
+    {
+        Camera.transform.position = Player.transform.position + _cameraPosition;
+
+        horizontal = Input.GetAxisRaw("Horizontal");
+
+        ChangePlayerMode();
+        MoveAndAnimation();
+        Action();
     }
 
     void MoveAndAnimation()
@@ -140,17 +161,5 @@ public class PlayerController : MonoBehaviour
         {
             _playerMode = PlayerMode.Wait;
         }
-    }
-
-
-    void Update()
-    {
-        Camera.transform.position = Player.transform.position + _cameraPosition;
-
-        horizontal = Input.GetAxisRaw("Horizontal");
-
-        ChangePlayerMode();
-        MoveAndAnimation();
-        Action();
     }
 }
