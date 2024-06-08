@@ -14,6 +14,10 @@ public class MapGimmikController : MonoBehaviour
         Door
     }
 
+    [Header("ドア設定")]
+    [SerializeField,Tooltip("trueの時に時計回り")]
+    bool _rotateDirection;
+
     void Start()
     {
         
@@ -28,9 +32,18 @@ public class MapGimmikController : MonoBehaviour
         {
             Debug.Log("ドアをオープン");
             
-            GimmickObjectTransform.DORotate(Vector3.up * -90f, 2f)
-                .OnPlay(() => selfCollider.isTrigger = true)
-                .OnComplete(() => _onActive = false);
+            if (_rotateDirection)
+            {
+                GimmickObjectTransform.DORotate(Vector3.up * 90f, 2f)
+                    .OnPlay(() => selfCollider.isTrigger = true)
+                    .OnComplete(() => _onActive = false);
+            } else
+            {
+                GimmickObjectTransform.DORotate(Vector3.up * -90f, 2f)
+                    .OnPlay(() => selfCollider.isTrigger = true)
+                    .OnComplete(() => _onActive = false);
+
+            }
         } else
         {
             Debug.Log("ドアをクローズ");
