@@ -35,11 +35,9 @@ public class MapGimmickManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.C) && _hitInfo.transform.gameObject.CompareTag("Gimmick"))
             {
                 MapGimmikController targetGimmikController = _hitInfo.transform.gameObject.GetComponent<MapGimmikController>();
-                Debug.Log("アクション実行");
 
                 if (targetGimmikController._GimmickKind == MapGimmikController.GimmickKind.Door && !targetGimmikController._onActive)
                 {
-                    Debug.Log("Door実行");
                     targetGimmikController.RotateDoor();
 
                 }

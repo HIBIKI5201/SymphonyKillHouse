@@ -29,11 +29,8 @@ public class MapGimmikController : MonoBehaviour
             Debug.Log("ドアをオープン");
             
             GimmickObjectTransform.DORotate(Vector3.up * -90f, 2f)
-                .OnComplete(() =>
-                {
-                    selfCollider.isTrigger = true;
-                    _onActive = false;
-                });
+                .OnPlay(() => selfCollider.isTrigger = true)
+                .OnComplete(() => _onActive = false);
         } else
         {
             Debug.Log("ドアをクローズ");
