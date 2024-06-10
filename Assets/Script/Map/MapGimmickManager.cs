@@ -30,7 +30,7 @@ public class MapGimmickManager : MonoBehaviour
 
         if (_hitInfo)
         {
-            Debug.Log($"レイキャストに反応中の{_hitInfo.transform.gameObject.name}は{_hitInfo.distance}m");
+            //Debug.Log($"レイキャストに反応中の{_hitInfo.transform.gameObject.name}は{_hitInfo.distance}m");
 
             if (Input.GetKeyDown(KeyCode.C) && _hitInfo.transform.gameObject.CompareTag("Gimmick"))
             {
@@ -44,7 +44,7 @@ public class MapGimmickManager : MonoBehaviour
             }
         } else
         {
-            Debug.Log("レイキャストに反応なし");
+            //Debug.Log("レイキャストに反応なし");
         }
     }
 }

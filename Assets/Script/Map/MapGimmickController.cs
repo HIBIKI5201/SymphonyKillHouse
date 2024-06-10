@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class MapGimmikController : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class MapGimmikController : MonoBehaviour
     [Header("ドア設定")]
     [SerializeField,Tooltip("trueの時に時計回り")]
     bool _rotateDirection;
+    [SerializeField, Tooltip("影の制御")]
+    ShadowCaster2D DoorShadowCaster;
 
     void Start()
     {
@@ -31,6 +34,7 @@ public class MapGimmikController : MonoBehaviour
         if (!selfCollider.isTrigger)
         {
             Debug.Log("ドアをオープン");
+            DoorShadowCaster.enabled = false;
             
             if (_rotateDirection)
             {
@@ -47,6 +51,7 @@ public class MapGimmikController : MonoBehaviour
         } else
         {
             Debug.Log("ドアをクローズ");
+            DoorShadowCaster.enabled = true;
 
             Tween MoveDoor = GimmickObjectTransform.DORotate(Vector3.up * 0, doorOpenSpeed)
                 .OnPlay(() => selfCollider.isTrigger = false)
