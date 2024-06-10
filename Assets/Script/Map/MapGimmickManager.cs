@@ -26,7 +26,7 @@ public class MapGimmickManager : MonoBehaviour
 
     void Update()
     {
-        _hitInfo = Physics2D.Raycast(MainPlayerPos.position, Vector2.right, _raycastDistance);
+        _hitInfo = Physics2D.Raycast(MainPlayerPos.position, Vector2.right * Mathf.Sign(transform.localScale.x), _raycastDistance);
 
         if (_hitInfo)
         {
@@ -38,7 +38,7 @@ public class MapGimmickManager : MonoBehaviour
 
                 if (targetGimmikController._GimmickKind == MapGimmikController.GimmickKind.Door && !targetGimmikController._onActive)
                 {
-                    targetGimmikController.RotateDoor();
+                    targetGimmikController.RotateDoor(_doorOpenSpeed);
 
                 }
             }

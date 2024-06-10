@@ -20,12 +20,18 @@ public class GunShootManager : MonoBehaviour
     [Header("マズルポジション")]
     [SerializeField]
     Transform MuzzlePos;
+    [Header("マズルフラッシュ")]
     [SerializeField]
-    GameObject MazzleFlash;
+    GameObject MazzleFlashLight;
+    [SerializeField]
+    GameObject MazzleFlashSprite;
 
     void Start()
     {
         _remainBullets = _magazineSize;
+
+        MazzleFlashSprite.gameObject.SetActive(false);
+        MazzleFlashLight.gameObject.SetActive(false);
     }
 
     public IEnumerator Shoot()
@@ -37,8 +43,11 @@ public class GunShootManager : MonoBehaviour
 
         Debug.Log(_remainBullets);
 
-        MazzleFlash.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        MazzleFlash.gameObject.SetActive(false);
+        MazzleFlashLight.gameObject.SetActive(true);
+        MazzleFlashSprite.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        MazzleFlashSprite.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.05f);
+        MazzleFlashLight.gameObject.SetActive(false);
     }
 }

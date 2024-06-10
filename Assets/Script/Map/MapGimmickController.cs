@@ -23,7 +23,7 @@ public class MapGimmikController : MonoBehaviour
         
     }
 
-    public void RotateDoor()
+    public void RotateDoor(float doorOpenSpeed)
     {
         _onActive = true;
 
@@ -34,12 +34,12 @@ public class MapGimmikController : MonoBehaviour
             
             if (_rotateDirection)
             {
-                GimmickObjectTransform.DORotate(Vector3.up * 90f, 2f)
+                GimmickObjectTransform.DORotate(Vector3.up * 90f, doorOpenSpeed)
                     .OnPlay(() => selfCollider.isTrigger = true)
                     .OnComplete(() => _onActive = false);
             } else
             {
-                GimmickObjectTransform.DORotate(Vector3.up * -90f, 2f)
+                GimmickObjectTransform.DORotate(Vector3.up * -90f, doorOpenSpeed)
                     .OnPlay(() => selfCollider.isTrigger = true)
                     .OnComplete(() => _onActive = false);
 
@@ -48,7 +48,7 @@ public class MapGimmikController : MonoBehaviour
         {
             Debug.Log("ドアをクローズ");
 
-            Tween MoveDoor = GimmickObjectTransform.DORotate(Vector3.up * 0, 2f)
+            Tween MoveDoor = GimmickObjectTransform.DORotate(Vector3.up * 0, doorOpenSpeed)
                 .OnPlay(() => selfCollider.isTrigger = false)
                 .OnComplete(() => _onActive = false);
         }
