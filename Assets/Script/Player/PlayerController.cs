@@ -108,38 +108,29 @@ public class PlayerController : MonoBehaviour
     {
         if (_playerMode == PlayerMode.Walk)
         {
+           
+
             if (Mathf.Sign(horizontal) == Mathf.Sign(transform.localScale.x))
             {
-                playerAnimator.SetBool("Move", true);
-
-                playerAnimator.SetBool("MoveBack", false);
+                playerAnimator.SetInteger("AnimeNum", 1);
             }
             else
             {
-                playerAnimator.SetBool("MoveBack", true);
-
-                playerAnimator.SetBool("Move", false);
+                playerAnimator.SetInteger("AnimeNum", 2);
             }
-            playerAnimator.SetBool("Run", false);
+
         }
         else if (_playerMode == PlayerMode.Running)
         {
-            playerAnimator.SetBool("Run", true);
+            playerAnimator.SetInteger("AnimeNum", 3);
         }
         else if (_playerMode == PlayerMode.Crouching)
         {
-            playerAnimator.SetBool("Crouching", true);
-
-            playerAnimator.SetBool("Move", false);
-            playerAnimator.SetBool("MoveBack", false);
-            playerAnimator.SetBool("Run", false);
-            }
+            playerAnimator.SetInteger("AnimeNum", 4);
+        }
         else if (_playerMode == PlayerMode.Wait)
         {
-            playerAnimator.SetBool("Move", false);
-            playerAnimator.SetBool("MoveBack", false);
-            playerAnimator.SetBool("Run", false);
-            playerAnimator.SetBool("Crouching", false);
+            playerAnimator.SetInteger("AnimeNum", 0);
         }
     }
 
