@@ -1,28 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Versioning;
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("プレイヤー")]
-    [SerializeField]
-    GameObject Player;
-
-    [Header("プレイヤーコンポーネント")]
-    [SerializeField]
-    Rigidbody2D playerRB;
-    [SerializeField]
-    Animator playerAnimator;
+    SymphonyInputSystem _inputSystem;
+    Rigidbody2D _playerRB;
+    Animator _playerAnimator;
 
     [Header("ステータス")]
-    [SerializeField,Tooltip("移動速度")]
+    [SerializeField, Tooltip("移動速度")]
     float _moveSpeed;
-    [SerializeField,Tooltip("ダッシュ時の移動速度倍率")]
+    [SerializeField, Tooltip("ダッシュ時の移動速度倍率")]
     float _runSpeed;
-    [Tooltip("入力されている水平の方向")]
-    float horizontal;
+    bool _stopTrigger;
+    [Tooltip("移動方向")]
+    Vector2 _inputAxis;
 
     [Tooltip("プレイヤーの状態を表す")]
     public PlayerMode _playerMode;
@@ -38,108 +30,80 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     GunShootManager gunShootManager;
 
+    float targetMoveBlend;
+    float currentMoveBlend;
+
     void Start()
     {
+        _playerRB = GetComponent<Rigidbody2D>();
+        _playerAnimator = GetComponent<Animator>();
+
         _playerMode = PlayerMode.Wait;
     }
 
     void Update()
     {
-
-        horizontal = Input.GetAxisRaw("Horizontal");
-
-        ChangePlayerMode();
-
         Move();
         Animation();
-        Action();
     }
 
-    void ChangePlayerMode()
+    private void Move()
     {
-        if (horizontal != 0 && _playerMode != PlayerMode.Crouching)
+        if (_playerMode == PlayerMode.Walk)
         {
-            if (Mathf.Sign(horizontal) == Mathf.Sign(transform.localScale.x) && Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                if (_playerMode != PlayerMode.Running)
-                {
-                    _playerMode = PlayerMode.Running;
-                }
-                else
-                {
-                    _playerMode = PlayerMode.Walk;
-                }
-            }
+            _playerRB.velocity = new Vector2(_moveSpeed * _inputAxis.x, _playerRB.velocity.y);
+        }
+        else if (_playerMode == PlayerMode.Running)
+        {
+            _playerRB.velocity = new Vector2(_moveSpeed * _inputAxis.x * _runSpeed, _playerRB.velocity.y);
+        }
 
-            if (_playerMode != PlayerMode.Running)
-            {
-                _playerMode = PlayerMode.Walk;
-            }
-        }
-        else if (Input.GetKey(KeyCode.S))
+        if (_stopTrigger)
         {
-            _playerMode = PlayerMode.Crouching;
-        } else
-        {
-            _playerMode = PlayerMode.Wait;
-        }
-    }
 
-    void Move()
-    {
-        if (horizontal != 0)
-        {
-            if (_playerMode == PlayerMode.Walk)
-            {
-                playerRB.velocity = new Vector2(_moveSpeed * horizontal, playerRB.velocity.y);
-            }
-            else if (_playerMode == PlayerMode.Running)
-            {
-                playerRB.velocity = new Vector2(_moveSpeed * horizontal * _runSpeed, playerRB.velocity.y);
-            }
-        }
-        else
-        {
-            playerRB.velocity = new Vector2(0, playerRB.velocity.y);
+            _stopTrigger = false;
         }
     }
 
     void Animation()
     {
-        if (_playerMode == PlayerMode.Walk)
-        {
-           
+        targetMoveBlend = _playerRB.velocity.x * Mathf.Sign(transform.localScale.x);
+        currentMoveBlend = targetMoveBlend > currentMoveBlend ? Mathf.Lerp(currentMoveBlend, targetMoveBlend, Time.deltaTime * 3f) : Mathf.Lerp(currentMoveBlend, targetMoveBlend, Time.deltaTime * 6f);
 
-            if (Mathf.Sign(horizontal) == Mathf.Sign(transform.localScale.x))
-            {
-                playerAnimator.SetInteger("AnimeNum", 1);
-            }
-            else
-            {
-                playerAnimator.SetInteger("AnimeNum", 2);
-            }
+        _playerAnimator.SetFloat("MoveBlend", currentMoveBlend);
+    }
 
-        }
-        else if (_playerMode == PlayerMode.Running)
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        _inputAxis = context.ReadValue<Vector2>();
+
+        if (_inputAxis == Vector2.zero)
         {
-            playerAnimator.SetInteger("AnimeNum", 3);
+            _playerMode = PlayerMode.Wait;
         }
-        else if (_playerMode == PlayerMode.Crouching)
+        else
         {
-            playerAnimator.SetInteger("AnimeNum", 4);
-        }
-        else if (_playerMode == PlayerMode.Wait)
-        {
-            playerAnimator.SetInteger("AnimeNum", 0);
+            _playerMode = PlayerMode.Walk;
         }
     }
 
-    void Action()
+    public void OnRun(InputAction.CallbackContext context)
     {
+        if (context.phase == InputActionPhase.Started && _playerMode == PlayerMode.Walk && _inputAxis.x == Mathf.Sign(transform.localScale.x))
+        {
+            Debug.Log("おん");
+            _playerMode = PlayerMode.Running;
+        }
+        else if (context.phase == InputActionPhase.Canceled && _playerMode == PlayerMode.Running)
+        {
+            Debug.Log("おふ");
+            _playerMode = PlayerMode.Walk;
+        }
+    }
 
-
-
-        if (Input.GetMouseButtonDown(0) && _playerMode != PlayerMode.Running)
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        if (_playerMode != PlayerMode.Running && context.phase == InputActionPhase.Started)
         {
             if (gunShootManager._remainBullets > 0)
             {
