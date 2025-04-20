@@ -129,6 +129,8 @@ GameObject:
   m_Component:
   - component: {fileID: 110498584}
   - component: {fileID: 110498585}
+  - component: {fileID: 110498587}
+  - component: {fileID: 110498586}
   m_Layer: 0
   m_Name: InputBuffer
   m_TagString: Untagged
@@ -181,6 +183,31 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &110498586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110498583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c2c69bb427f88f408b097383b690c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 110498587}
+--- !u!114 &110498587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110498583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f798e045c74497945a79b5f39c6139ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &112746252
 GameObject:
   m_ObjectHideFlags: 0
