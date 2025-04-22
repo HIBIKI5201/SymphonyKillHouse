@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using KillHouse.Runtime.System;
 using SymphonyFrameWork.System;
@@ -8,44 +9,46 @@ using UnityEngine.InputSystem;
 
 namespace KillHouse.Runtime.Ingame
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : MonoBehaviour, IDisposable
     {
         private static readonly int AnimMoveX = Animator.StringToHash("MoveX");
         private static readonly int AnimMoveY = Animator.StringToHash("MoveY");
         private static readonly int AnimMoveMag = Animator.StringToHash("MoveMag");
         private static readonly int AnimSprint = Animator.StringToHash("Sprint");
-        
+
         [SerializeField] private float _moveSpeed = 5f;
+        [SerializeField] private float _dushSpeed = 8f;
         [SerializeField] private float _lookSpeed = 3f;
 
+        private InputBuffer _inputBuffer;
         private Animator _animator;
 
         private bool _isMove;
-        private Vector2 _moveInput = Vector2.zero;
-        private CancellationTokenSource _moveTaskToken;
 
         private bool _isSprint;
+        private Vector2 _moveInput = Vector2.zero;
+        private CancellationTokenSource _moveTaskToken;
 
         private void Start()
         {
             # region 入力系
 
-            var inputBuffer = ServiceLocator.GetInstance<InputBuffer>();
+            _inputBuffer = ServiceLocator.GetInstance<InputBuffer>();
 
             //攻撃入力
-            inputBuffer.Attack.started += _ => Debug.Log("Attack");
+            _inputBuffer.Attack.started += _ => Debug.Log("Attack");
 
             //移動入力
-            inputBuffer.Move.started += OnMove;
-            inputBuffer.Move.performed += OnMove;
-            inputBuffer.Move.canceled += OnMove;
-            
-            inputBuffer.Look.started += OnLook;
-            inputBuffer.Look.performed += OnLook;
-            inputBuffer.Look.canceled += OnLook;
-            
-            inputBuffer.Sprint.started += OnSprint;
-            inputBuffer.Sprint.canceled += OnSprint;
+            _inputBuffer.Move.started += OnMove;
+            _inputBuffer.Move.performed += OnMove;
+            _inputBuffer.Move.canceled += OnMove;
+
+            _inputBuffer.Look.started += OnLook;
+            _inputBuffer.Look.performed += OnLook;
+            _inputBuffer.Look.canceled += OnLook;
+
+            _inputBuffer.Sprint.started += OnSprint;
+            _inputBuffer.Sprint.canceled += OnSprint;
 
             #endregion
 
@@ -61,11 +64,20 @@ namespace KillHouse.Runtime.Ingame
         {
             if (_isMove)
                 //NavMeshから移動場所を選定
-                if (NavMesh.SamplePosition(transform.position
-                                           + transform.TransformDirection(new Vector3(_moveInput.x, 0, _moveInput.y)) //プレイヤーの正面方向に合わせる
-                                           * (_moveSpeed * Time.deltaTime),
-                        out var hit, 1.0f, NavMesh.AllAreas))
+            {
+                var speed = _isSprint && 0.5f < _moveInput.magnitude && 0 < _moveInput.y ?
+                    _dushSpeed : _moveSpeed;
+                
+                var nextMovePos = transform.position
+                                  + transform.TransformDirection(new Vector3(_moveInput.x, 0, _moveInput.y)) //プレイヤーの正面方向に合わせる
+                                  * (speed * Time.deltaTime);
+                
+                if (NavMesh.SamplePosition(nextMovePos, out var hit,
+                        1.0f, NavMesh.AllAreas))
+                {
                     transform.position = hit.position;
+                }
+            }
         }
 
         /// <summary>
@@ -108,19 +120,19 @@ namespace KillHouse.Runtime.Ingame
         }
 
         /// <summary>
-        /// 視点入力を受け取った時
+        ///     視点入力を受け取った時
         /// </summary>
         /// <param name="context"></param>
         private void OnLook(InputAction.CallbackContext context)
         {
             var lookInput = context.ReadValue<Vector2>();
-            
+
             //キャラを回転させる
             transform.Rotate(Vector3.up, lookInput.x * _lookSpeed * Time.deltaTime);
         }
 
         /// <summary>
-        /// ダッシュ入力を受け取った時
+        ///     ダッシュ入力を受け取った時
         /// </summary>
         /// <param name="context"></param>
         private void OnSprint(InputAction.CallbackContext context)
@@ -130,13 +142,34 @@ namespace KillHouse.Runtime.Ingame
                 case InputActionPhase.Started:
                     _isSprint = true;
                     break;
-                
+
                 case InputActionPhase.Canceled:
                     _isSprint = false;
                     break;
             }
-            
+
             _animator.SetBool(AnimSprint, _isSprint);
+        }
+
+        private void OnDestroy()
+        {
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            _inputBuffer.Move.started -= OnMove;
+            _inputBuffer.Move.performed -= OnMove;
+            _inputBuffer.Move.canceled -= OnMove;
+
+            _inputBuffer.Look.started -= OnLook;
+            _inputBuffer.Look.performed -= OnLook;
+            _inputBuffer.Look.canceled -= OnLook;
+
+            _inputBuffer.Sprint.started -= OnSprint;
+            _inputBuffer.Sprint.canceled -= OnSprint;
+            
+            Debug.Log($"{name}を解放しました。");
         }
     }
 }
