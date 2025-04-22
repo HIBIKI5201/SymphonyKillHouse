@@ -17,12 +17,16 @@ namespace KillHouse.Runtime.System
 
         public InputAction Attack => _attack;
         private InputAction _attack;
+
+        public InputAction Look => _look;
+        private InputAction _look;
         
         private void Awake()
         {
             _playerInput = GetComponent<PlayerInput>();
             _move =  _playerInput.actions["Move"];
             _attack =  _playerInput.actions["Attack"];
+            _look =  _playerInput.actions["Look"];
         }
 
         /// <summary>
