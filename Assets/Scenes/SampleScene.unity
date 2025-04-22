@@ -265,6 +265,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
+      propertyPath: _dushSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
       propertyPath: _lookSpeed
       value: 10
       objectReference: {fileID: 0}
