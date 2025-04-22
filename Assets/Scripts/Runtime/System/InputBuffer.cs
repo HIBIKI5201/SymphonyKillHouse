@@ -20,6 +20,9 @@ namespace KillHouse.Runtime.System
 
         public InputAction Look => _look;
         private InputAction _look;
+
+        public InputAction Sprint => _sprint;
+        private InputAction _sprint;
         
         private void Awake()
         {
@@ -27,6 +30,7 @@ namespace KillHouse.Runtime.System
             _move =  _playerInput.actions["Move"];
             _attack =  _playerInput.actions["Attack"];
             _look =  _playerInput.actions["Look"];
+            _sprint = _playerInput.actions["Sprint"];
             
             Cursor.lockState = CursorLockMode.Locked;
         }
