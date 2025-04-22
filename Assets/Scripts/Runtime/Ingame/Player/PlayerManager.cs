@@ -13,7 +13,6 @@ namespace KillHouse.Runtime.Ingame
     {
         private static readonly int AnimMoveX = Animator.StringToHash("MoveX");
         private static readonly int AnimMoveY = Animator.StringToHash("MoveY");
-        private static readonly int AnimMoveMag = Animator.StringToHash("MoveMag");
         private static readonly int AnimSprint = Animator.StringToHash("Sprint");
 
         [SerializeField] private float _moveSpeed = 5f;
@@ -65,7 +64,7 @@ namespace KillHouse.Runtime.Ingame
             if (_isMove)
                 //NavMeshから移動場所を選定
             {
-                var speed = _isSprint && 0.5f < _moveInput.magnitude && 0 < _moveInput.y ?
+                var speed = _isSprint && 0.7071f < _moveInput.y ?
                     _dushSpeed : _moveSpeed;
                 
                 var nextMovePos = transform.position
@@ -112,7 +111,6 @@ namespace KillHouse.Runtime.Ingame
                     {
                         _animator.SetFloat(AnimMoveX, vec.x);
                         _animator.SetFloat(AnimMoveY, vec.y);
-                        _animator.SetFloat(AnimMoveMag, vec.magnitude);
                     },
                     _moveInput, 0.3f,
                     token: _moveTaskToken.Token);
