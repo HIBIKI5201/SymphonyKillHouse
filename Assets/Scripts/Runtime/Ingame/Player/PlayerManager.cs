@@ -12,7 +12,9 @@ namespace KillHouse.Runtime.Ingame
     {
         private static readonly int MoveX = Animator.StringToHash("MoveX");
         private static readonly int MoveY = Animator.StringToHash("MoveY");
+        
         [SerializeField] private float _moveSpeed = 5f;
+        [SerializeField] private float _lookSpeed = 3f;
 
         private Animator _animator;
 
@@ -33,6 +35,10 @@ namespace KillHouse.Runtime.Ingame
             inputBuffer.Move.started += OnMove;
             inputBuffer.Move.performed += OnMove;
             inputBuffer.Move.canceled += OnMove;
+            
+            inputBuffer.Look.started += OnLook;
+            inputBuffer.Look.performed += OnLook;
+            inputBuffer.Look.canceled += OnLook;
 
             #endregion
 
@@ -49,13 +55,14 @@ namespace KillHouse.Runtime.Ingame
             if (_isMove)
                 //NavMeshから移動場所を選定
                 if (NavMesh.SamplePosition(transform.position
-                                           + new Vector3(_moveInput.x, 0, _moveInput.y) * (_moveSpeed * Time.deltaTime),
+                                           + transform.TransformDirection(new Vector3(_moveInput.x, 0, _moveInput.y)) //プレイヤーの正面方向に合わせる
+                                           * (_moveSpeed * Time.deltaTime),
                         out var hit, 1.0f, NavMesh.AllAreas))
                     transform.position = hit.position;
         }
 
         /// <summary>
-        ///     入力を受け取り
+        ///     移動入力を受け取った時
         /// </summary>
         /// <param name="context"></param>
         private void OnMove(InputAction.CallbackContext context)
@@ -90,6 +97,17 @@ namespace KillHouse.Runtime.Ingame
                     _moveInput, 0.3f,
                     token: _moveTaskToken.Token);
             }
+        }
+
+        /// <summary>
+        /// 視点入力を受け取った時
+        /// </summary>
+        /// <param name="context"></param>
+        private void OnLook(InputAction.CallbackContext context)
+        {
+            var lookInput = context.ReadValue<Vector2>();
+            
+            transform.Rotate(Vector3.up, lookInput.x * _lookSpeed * Time.deltaTime);
         }
     }
 }
