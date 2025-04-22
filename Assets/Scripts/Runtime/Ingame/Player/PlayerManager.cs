@@ -10,8 +10,10 @@ namespace KillHouse.Runtime.Ingame
 {
     public class PlayerManager : MonoBehaviour
     {
-        private static readonly int MoveX = Animator.StringToHash("MoveX");
-        private static readonly int MoveY = Animator.StringToHash("MoveY");
+        private static readonly int AnimMoveX = Animator.StringToHash("MoveX");
+        private static readonly int AnimMoveY = Animator.StringToHash("MoveY");
+        private static readonly int AnimMoveMag = Animator.StringToHash("MoveMag");
+        private static readonly int AnimSprint = Animator.StringToHash("Sprint");
         
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _lookSpeed = 3f;
@@ -21,6 +23,8 @@ namespace KillHouse.Runtime.Ingame
         private bool _isMove;
         private Vector2 _moveInput = Vector2.zero;
         private CancellationTokenSource _moveTaskToken;
+
+        private bool _isSprint;
 
         private void Start()
         {
@@ -39,6 +43,9 @@ namespace KillHouse.Runtime.Ingame
             inputBuffer.Look.started += OnLook;
             inputBuffer.Look.performed += OnLook;
             inputBuffer.Look.canceled += OnLook;
+            
+            inputBuffer.Sprint.started += OnSprint;
+            inputBuffer.Sprint.canceled += OnSprint;
 
             #endregion
 
@@ -91,8 +98,9 @@ namespace KillHouse.Runtime.Ingame
                 SymphonyTween.PausableTweening(lastInput,
                     vec =>
                     {
-                        _animator.SetFloat(MoveX, vec.x);
-                        _animator.SetFloat(MoveY, vec.y);
+                        _animator.SetFloat(AnimMoveX, vec.x);
+                        _animator.SetFloat(AnimMoveY, vec.y);
+                        _animator.SetFloat(AnimMoveMag, vec.magnitude);
                     },
                     _moveInput, 0.3f,
                     token: _moveTaskToken.Token);
@@ -107,7 +115,28 @@ namespace KillHouse.Runtime.Ingame
         {
             var lookInput = context.ReadValue<Vector2>();
             
+            //キャラを回転させる
             transform.Rotate(Vector3.up, lookInput.x * _lookSpeed * Time.deltaTime);
+        }
+
+        /// <summary>
+        /// ダッシュ入力を受け取った時
+        /// </summary>
+        /// <param name="context"></param>
+        private void OnSprint(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    _isSprint = true;
+                    break;
+                
+                case InputActionPhase.Canceled:
+                    _isSprint = false;
+                    break;
+            }
+            
+            _animator.SetBool(AnimSprint, _isSprint);
         }
     }
 }
