@@ -1,27 +1,24 @@
-using System;
-using KillHouse.Runtime.Ingame;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class PlayerCameraManager : MonoBehaviour
+namespace KillHouse.Runtime.Ingame
 {
-    private CinemachineCamera _camera;
-
-    private void Awake()
+    public class PlayerCameraManager : MonoBehaviour
     {
-        _camera = GetComponent<CinemachineCamera>();
-    }
+        private CinemachineCamera _camera;
 
-    void Start()
-    {
-        var player = FindAnyObjectByType<PlayerManager>();
-        if (player)
+        private void Awake()
         {
-            _camera.Follow = player.transform;
+            _camera = GetComponent<CinemachineCamera>();
         }
-        else
+
+        private void Start()
         {
-            Debug.LogWarning("Player manager not found");
+            var player = FindAnyObjectByType<PlayerManager>();
+            if (player)
+                _camera.Follow = player.transform;
+            else
+                Debug.LogWarning("Player manager not found");
         }
     }
 }
