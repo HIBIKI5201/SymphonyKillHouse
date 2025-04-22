@@ -27,6 +27,8 @@ namespace KillHouse.Runtime.System
             _move =  _playerInput.actions["Move"];
             _attack =  _playerInput.actions["Attack"];
             _look =  _playerInput.actions["Look"];
+            
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         /// <summary>
