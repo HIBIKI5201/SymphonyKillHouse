@@ -14,6 +14,7 @@ namespace KillHouse.Runtime.Ingame
         private static readonly int AnimMoveX = Animator.StringToHash("MoveX");
         private static readonly int AnimMoveY = Animator.StringToHash("MoveY");
         private static readonly int AnimSprint = Animator.StringToHash("Sprint");
+        private static readonly int AnimJump = Animator.StringToHash("Jump");
 
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _dushSpeed = 8f;
@@ -45,6 +46,8 @@ namespace KillHouse.Runtime.Ingame
             _inputBuffer.Look.started += OnLook;
             _inputBuffer.Look.performed += OnLook;
             _inputBuffer.Look.canceled += OnLook;
+            
+            _inputBuffer.Jump.started += OnJump;
 
             _inputBuffer.Sprint.started += OnSprint;
             _inputBuffer.Sprint.canceled += OnSprint;
@@ -127,6 +130,15 @@ namespace KillHouse.Runtime.Ingame
 
             //キャラを回転させる
             transform.Rotate(Vector3.up, lookInput.x * _lookSpeed * Time.deltaTime);
+        }
+
+        /// <summary>
+        ///     ジャンプ入力を受け取った時
+        /// </summary>
+        /// <param name="context"></param>
+        private void OnJump(InputAction.CallbackContext context)
+        {
+            _animator.SetTrigger(AnimJump);
         }
 
         /// <summary>
