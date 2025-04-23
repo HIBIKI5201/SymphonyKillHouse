@@ -135,7 +135,6 @@ namespace KillHouse.Runtime.Ingame
         /// <param name="context"></param>
         private void OnMove(InputAction.CallbackContext context)
         {
-            var lastInput = _moveInput;
             _moveInput = context.ReadValue<Vector2>();
 
             //isMoveを変更
@@ -156,6 +155,11 @@ namespace KillHouse.Runtime.Ingame
                 _moveTaskToken?.Cancel(); //前のTweeningをキャンセル
                 _moveTaskToken = new CancellationTokenSource();
 
+                //現在のパラメータを取得
+                var lastInput = new Vector2(
+                    _animator.GetFloat(AnimMoveX),
+                    _animator.GetFloat(AnimMoveY));
+                
                 //徐々にパラメータを目標値まで上げる
                 SymphonyTween.PausableTweening(lastInput,
                     vec =>
