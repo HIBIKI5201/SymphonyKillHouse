@@ -218,6 +218,7 @@ namespace KillHouse.Runtime.Ingame
         {
             if (!_onGround) return;
             
+            _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0, _rigidbody.linearVelocity.z);
             _rigidbody.AddForce(new Vector3(0, _jumpPower, 0), ForceMode.Impulse);
 
             _animator.SetTrigger(AnimJump);
