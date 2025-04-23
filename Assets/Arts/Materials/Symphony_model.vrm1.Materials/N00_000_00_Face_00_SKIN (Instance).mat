@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: N00_000_00_Face_00_SKIN (Instance)
-  m_Shader: {fileID: 4800000, guid: e0edbf68d81d1f340ae8b110086b7063, type: 3}
+  m_Shader: {fileID: 4800000, guid: 0781c64b7f2a1604ea6aa7e252080372, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -31,23 +31,23 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 850075c707d1841438c377bdf8b6f890, type: 3}
+        m_Texture: {fileID: 2800000, guid: a13b6357b36893c47b6bde7a71c65ebd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: c08c8fa85f12f244999bc9391ea8b2b8, type: 3}
+        m_Texture: {fileID: 2800000, guid: cf41e51e2a4a186418014004cc3c893a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c1cacb9102d3197439c6c69622596426, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9415eceb051be6348bf4d19ba14df241, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatcapTex:
-        m_Texture: {fileID: 2800000, guid: 99f70bc5871098c449b5bfbfbbb73e4b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9bde05a952b79674dabc66bc80b4a3ec, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineWidthTex:
-        m_Texture: {fileID: 2800000, guid: 21e53753f1516024586ed0500e20e0d3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1e79dd98d1c07ff41af002a715cab3de, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RimTex:
@@ -55,7 +55,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadeTex:
-        m_Texture: {fileID: 2800000, guid: c1cacb9102d3197439c6c69622596426, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9415eceb051be6348bf4d19ba14df241, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadingShiftTex:

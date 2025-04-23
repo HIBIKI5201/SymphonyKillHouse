@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: N00_000_00_Body_00_SKIN (Instance)
-  m_Shader: {fileID: 4800000, guid: e0edbf68d81d1f340ae8b110086b7063, type: 3}
+  m_Shader: {fileID: 4800000, guid: 0781c64b7f2a1604ea6aa7e252080372, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -30,19 +30,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: f8b72c9c284c5e845a7334a6d3caf453, type: 3}
+        m_Texture: {fileID: 2800000, guid: 769cd33f631559747a1fd4dc9c2bbb3c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: c08c8fa85f12f244999bc9391ea8b2b8, type: 3}
+        m_Texture: {fileID: 2800000, guid: cf41e51e2a4a186418014004cc3c893a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c5139cb042eb06e47a021ff980e3c4c2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8aa5c882dd5f17c4994e6d44d2957475, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatcapTex:
-        m_Texture: {fileID: 2800000, guid: 99f70bc5871098c449b5bfbfbbb73e4b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9bde05a952b79674dabc66bc80b4a3ec, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineWidthTex:
@@ -54,7 +54,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadeTex:
-        m_Texture: {fileID: 2800000, guid: c5139cb042eb06e47a021ff980e3c4c2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8aa5c882dd5f17c4994e6d44d2957475, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadingShiftTex:

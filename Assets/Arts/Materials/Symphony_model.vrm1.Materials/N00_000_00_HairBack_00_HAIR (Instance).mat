@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: N00_000_00_HairBack_00_HAIR (Instance)
-  m_Shader: {fileID: 4800000, guid: e0edbf68d81d1f340ae8b110086b7063, type: 3}
+  m_Shader: {fileID: 4800000, guid: 0781c64b7f2a1604ea6aa7e252080372, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -28,15 +28,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: d09c197c1bf860b41994897c7f9930f8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 478f9e736fcc3b34a871b5d9fddfd8a4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: c08c8fa85f12f244999bc9391ea8b2b8, type: 3}
+        m_Texture: {fileID: 2800000, guid: cf41e51e2a4a186418014004cc3c893a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 8483f352dd769ad43aa90430e8b70241, type: 3}
+        m_Texture: {fileID: 2800000, guid: bd352dafbb6c9d54482b1d24a4625f5d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatcapTex:
@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadeTex:
-        m_Texture: {fileID: 2800000, guid: 8483f352dd769ad43aa90430e8b70241, type: 3}
+        m_Texture: {fileID: 2800000, guid: bd352dafbb6c9d54482b1d24a4625f5d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadingShiftTex:

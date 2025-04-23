@@ -22,7 +22,7 @@ MonoBehaviour:
     ContactInformation: 
     References: []
     ThirdPartyLicenses: 
-    Thumbnail: {fileID: 0}
+    Thumbnail: {fileID: 2800000, guid: 4572a8fcdfa7f334f9e106ef0123fa6f, type: 3}
     AvatarPermission: 0
     ViolentUsage: 1
     SexualUsage: 0
