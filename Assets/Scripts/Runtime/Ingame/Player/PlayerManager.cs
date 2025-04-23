@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 
 namespace KillHouse.Runtime.Ingame
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class PlayerManager : MonoBehaviour, IDisposable
     {
         private static readonly int AnimMoveX = Animator.StringToHash("MoveX");
@@ -23,6 +24,7 @@ namespace KillHouse.Runtime.Ingame
 
         private InputBuffer _inputBuffer;
         private Animator _animator;
+        private Rigidbody _rigidbody;
 
         private bool _isMove;
 
@@ -31,6 +33,11 @@ namespace KillHouse.Runtime.Ingame
         private CancellationTokenSource _moveTaskToken;
 
         private bool _onGround;
+
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+        }
 
         private void Start()
         {
@@ -62,7 +69,7 @@ namespace KillHouse.Runtime.Ingame
 
         private void Update()
         {
-            Move();
+            MoveUpdate();
         }
 
         private void OnCollisionEnter(Collision other)
@@ -77,7 +84,7 @@ namespace KillHouse.Runtime.Ingame
             _animator.SetBool(AnimOnGround, false);
         }
 
-        private void Move()
+        private void MoveUpdate()
         {
             if (_isMove)
                 //NavMeshから移動場所を選定
@@ -85,15 +92,10 @@ namespace KillHouse.Runtime.Ingame
                 var speed = _isSprint && 0.7071f < _moveInput.y ?
                     _dushSpeed : _moveSpeed;
                 
-                var nextMovePos = transform.position
-                                  + transform.TransformDirection(new Vector3(_moveInput.x, 0, _moveInput.y)) //プレイヤーの正面方向に合わせる
-                                  * (speed * Time.deltaTime);
+                var dir = transform.TransformDirection(
+                    new Vector3(_moveInput.x, 0, _moveInput.y)) * speed;
                 
-                if (NavMesh.SamplePosition(nextMovePos, out var hit,
-                        1.0f, NavMesh.AllAreas))
-                {
-                    transform.position = hit.position;
-                }
+                _rigidbody.AddForce(dir, ForceMode.Force);
             }
         }
 
