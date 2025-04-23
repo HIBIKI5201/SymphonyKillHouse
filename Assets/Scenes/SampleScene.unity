@@ -749,6 +749,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
+      propertyPath: _dashAcceleration
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
       propertyPath: _dushAcceleration
       value: 60
       objectReference: {fileID: 0}
@@ -759,6 +763,10 @@ PrefabInstance:
     - target: {fileID: 7640051891888093189, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
       propertyPath: m_Name
       value: Symphony
+      objectReference: {fileID: 0}
+    - target: {fileID: 9060379845910921526, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
+      propertyPath: m_Drag
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
