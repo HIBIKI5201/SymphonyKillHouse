@@ -21,6 +21,9 @@ namespace KillHouse.Runtime.System
         public InputAction Look => _look;
         private InputAction _look;
 
+        public InputAction Jump => _jump;
+        private InputAction _jump;
+
         public InputAction Sprint => _sprint;
         private InputAction _sprint;
         
@@ -30,6 +33,7 @@ namespace KillHouse.Runtime.System
             _move =  _playerInput.actions["Move"];
             _attack =  _playerInput.actions["Attack"];
             _look =  _playerInput.actions["Look"];
+            _jump =  _playerInput.actions["Jump"];
             _sprint = _playerInput.actions["Sprint"];
             
             Cursor.lockState = CursorLockMode.Locked;
