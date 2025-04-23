@@ -268,14 +268,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Symphony
       objectReference: {fileID: 0}
-    - target: {fileID: 9060379845910921526, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
-      propertyPath: m_Drag
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9060379845910921526, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -581,7 +573,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: 3889d21958f728f438182c3c701f7fd8, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: 461a36b1468ac7a439a3e7a414c11e9a, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
