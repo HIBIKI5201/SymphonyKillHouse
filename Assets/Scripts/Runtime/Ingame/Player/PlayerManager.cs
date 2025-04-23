@@ -76,9 +76,9 @@ namespace KillHouse.Runtime.Ingame
             _animator = GetComponentInChildren<Animator>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            MoveUpdate();
+            MoveFixedUpdate();
         }
 
         private void OnDestroy()
@@ -128,12 +128,11 @@ namespace KillHouse.Runtime.Ingame
             Debug.Log($"{name}を解放しました。");
         }
 
-        private void MoveUpdate()
+        private void MoveFixedUpdate()
         {
-            if (!_onGround) return;
             if (!_isMove) return;
 
-            var isDash = _isSprint && 0.7071f < _moveInput.y;
+            var isDash = _isSprint && 0.7071f < _moveInput.y && _onGround;
             
             var acceleration = isDash ? _dashAcceleration : _moveAcceleration;
             var force = transform.TransformDirection(
@@ -217,7 +216,7 @@ namespace KillHouse.Runtime.Ingame
             if (!_onGround) return;
             
             _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0, _rigidbody.linearVelocity.z);
-            _rigidbody.AddForce(new Vector3(0, _jumpPower, 0), ForceMode.Impulse);
+            _rigidbody.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
 
             _animator.SetTrigger(AnimJump);
         }
@@ -241,6 +240,11 @@ namespace KillHouse.Runtime.Ingame
             }
 
             _animator.SetBool(AnimSprint, _isSprint);
+        }
+
+        private void OnGUI()
+        {
+             GUI.Label(new Rect(0,0,100,300), _rigidbody.linearVelocity.ToString());
         }
     }
 }
