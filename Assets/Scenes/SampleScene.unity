@@ -274,11 +274,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
       propertyPath: _dushAcceleration
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
       propertyPath: _moveAcceleration
-      value: 8
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7640051891888093189, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
       propertyPath: m_Name

@@ -47,8 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7683567268ebe47479bcc11068838a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _dushSpeed: 10
+  _moveAcceleration: 12
+  _dushAcceleration: 15
+  _moveMaxSpeed: 7
+  _dushMaxSpeed: 12
+  _jumpPower: 8
   _lookSpeed: 10
 --- !u!136 &30088872640337759
 CapsuleCollider:
