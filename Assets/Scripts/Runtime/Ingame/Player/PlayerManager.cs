@@ -17,6 +17,8 @@ namespace KillHouse.Runtime.Ingame
         private static readonly int AnimJump = Animator.StringToHash("Jump");
         private static readonly int AnimOnGround = Animator.StringToHash("OnGround");
 
+        private const string LAYER_GROUND_NAME = "Ground";
+
         [SerializeField] private float _moveAcceleration = 3;
         [SerializeField] private float _dushAcceleration = 3;
         [SerializeField] private float _moveMaxSpeed = 5f;
@@ -35,12 +37,14 @@ namespace KillHouse.Runtime.Ingame
         private Vector2 _moveInput = Vector2.zero;
         private CancellationTokenSource _moveTaskToken;
 
-        private bool _onGround;
+        private bool _onGround = true;
         private Rigidbody _rigidbody;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            
+            _onGround = true;
         }
 
         private void Start()
@@ -83,14 +87,20 @@ namespace KillHouse.Runtime.Ingame
 
         private void OnCollisionEnter(Collision other)
         {
-            _onGround = true;
-            _animator.SetBool(AnimOnGround, true);
+            if (other.gameObject.CompareTag(LAYER_GROUND_NAME))
+            {
+                _onGround = true;
+                _animator.SetBool(AnimOnGround, true);
+            }
         }
 
         private void OnCollisionExit(Collision other)
         {
-            _onGround = false;
-            _animator.SetBool(AnimOnGround, false);
+            if (other.gameObject.CompareTag(LAYER_GROUND_NAME))
+            {
+                _onGround = false;
+                _animator.SetBool(AnimOnGround, false);
+            }
         }
 
         public void Dispose()
