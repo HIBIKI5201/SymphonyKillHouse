@@ -195,6 +195,8 @@ namespace KillHouse.Runtime.Ingame
         /// <param name="context"></param>
         private void OnJump(InputAction.CallbackContext context)
         {
+            if (!_onGround) return;
+            
             _rigidbody.AddForce(new Vector3(0, _jumpPower, 0), ForceMode.Impulse);
 
             _animator.SetTrigger(AnimJump);
