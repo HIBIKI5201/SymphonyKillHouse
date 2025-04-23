@@ -17,8 +17,10 @@ namespace KillHouse.Runtime.Ingame
         private static readonly int AnimJump = Animator.StringToHash("Jump");
         private static readonly int AnimOnGround = Animator.StringToHash("OnGround");
 
-        [SerializeField] private float _moveSpeed = 5f;
-        [SerializeField] private float _dushSpeed = 8f;
+        [SerializeField] private float _moveAcceleration = 3;
+        [SerializeField] private float _dushAcceleration = 3;
+        [SerializeField] private float _moveMaxSpeed = 5f;
+        [SerializeField] private float _dushMaxSpeed = 8f;
         [SerializeField] private float _jumpPower = 8f;
 
         [Space] [SerializeField] private float _lookSpeed = 3f;
@@ -112,7 +114,7 @@ namespace KillHouse.Runtime.Ingame
             if (!_onGround) return;
             if (!_isMove) return;
 
-            var speed = _isSprint && 0.7071f < _moveInput.y ? _dushSpeed : _moveSpeed;
+            var speed = _isSprint && 0.7071f < _moveInput.y ? _dushMaxSpeed : _moveMaxSpeed;
 
             var dir = transform.TransformDirection(
                 new Vector3(_moveInput.x, 0, _moveInput.y)) * speed;
