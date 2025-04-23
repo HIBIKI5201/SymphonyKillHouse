@@ -15,6 +15,7 @@ namespace KillHouse.Runtime.Ingame
         private static readonly int AnimMoveY = Animator.StringToHash("MoveY");
         private static readonly int AnimSprint = Animator.StringToHash("Sprint");
         private static readonly int AnimJump = Animator.StringToHash("Jump");
+        private static readonly int AnimOnGround = Animator.StringToHash("OnGround");
 
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _dushSpeed = 8f;
@@ -29,20 +30,22 @@ namespace KillHouse.Runtime.Ingame
         private Vector2 _moveInput = Vector2.zero;
         private CancellationTokenSource _moveTaskToken;
 
+        private bool _onGround;
+
         private void Start()
         {
             # region 入力系
 
             _inputBuffer = ServiceLocator.GetInstance<InputBuffer>();
 
-            //攻撃入力
-            _inputBuffer.Attack.started += _ => Debug.Log("Attack");
-
             //移動入力
             _inputBuffer.Move.started += OnMove;
             _inputBuffer.Move.performed += OnMove;
             _inputBuffer.Move.canceled += OnMove;
 
+            //攻撃入力
+            _inputBuffer.Attack.started += OnAttack;
+            
             _inputBuffer.Look.started += OnLook;
             _inputBuffer.Look.performed += OnLook;
             _inputBuffer.Look.canceled += OnLook;
@@ -60,6 +63,18 @@ namespace KillHouse.Runtime.Ingame
         private void Update()
         {
             Move();
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            _onGround = true;
+            _animator.SetBool(AnimOnGround, true);
+        }
+
+        private void OnCollisionExit(Collision other)
+        {
+            _onGround = false;
+            _animator.SetBool(AnimOnGround, false);
         }
 
         private void Move()
@@ -91,6 +106,7 @@ namespace KillHouse.Runtime.Ingame
             var lastInput = _moveInput;
             _moveInput = context.ReadValue<Vector2>();
 
+            //isMoveを変更
             switch (context.phase)
             {
                 case InputActionPhase.Started:
@@ -120,6 +136,11 @@ namespace KillHouse.Runtime.Ingame
             }
         }
 
+        private void OnAttack(InputAction.CallbackContext context)
+        {
+            Debug.Log("Attack");
+        }
+
         /// <summary>
         ///     視点入力を受け取った時
         /// </summary>
@@ -147,6 +168,7 @@ namespace KillHouse.Runtime.Ingame
         /// <param name="context"></param>
         private void OnSprint(InputAction.CallbackContext context)
         {
+            //isSprintを変更
             switch (context.phase)
             {
                 case InputActionPhase.Started:
