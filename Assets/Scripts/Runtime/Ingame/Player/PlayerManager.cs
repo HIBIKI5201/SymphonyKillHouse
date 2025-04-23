@@ -5,6 +5,7 @@ using SymphonyFrameWork.System;
 using SymphonyFrameWork.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace KillHouse.Runtime.Ingame
 {
@@ -20,7 +21,7 @@ namespace KillHouse.Runtime.Ingame
         private const string LAYER_GROUND_NAME = "Ground";
 
         [SerializeField] private float _moveAcceleration = 3;
-        [SerializeField] private float _dushAcceleration = 3;
+        [FormerlySerializedAs("_dushAcceleration")] [SerializeField] private float _dashAcceleration = 3;
         [SerializeField] private float _moveMaxSpeed = 5f;
         [SerializeField] private float _dushMaxSpeed = 8f;
         [SerializeField] private float _jumpPower = 8f;
@@ -134,15 +135,15 @@ namespace KillHouse.Runtime.Ingame
             if (!_onGround) return;
             if (!_isMove) return;
 
-            var isDush = _isSprint && 0.7071f < _moveInput.y;
+            var isDash = _isSprint && 0.7071f < _moveInput.y;
             
-            var acceleration = isDush ? _dushAcceleration : _moveAcceleration;
+            var acceleration = isDash ? _dashAcceleration : _moveAcceleration;
             var force = transform.TransformDirection(
                 new Vector3(_moveInput.x, 0, _moveInput.y)) * acceleration;
             _rigidbody.AddForce(force, ForceMode.Acceleration);
             
             //速度がMaxSpeedを超えた場合に制限する
-            var maxVelocity = isDush ? _dushMaxSpeed : _moveMaxSpeed;
+            var maxVelocity = isDash ? _dushMaxSpeed : _moveMaxSpeed;
             if (_rigidbody.linearVelocity.sqrMagnitude > maxVelocity * maxVelocity)
             {
                 _rigidbody.linearVelocity = _rigidbody.linearVelocity.normalized * maxVelocity;
