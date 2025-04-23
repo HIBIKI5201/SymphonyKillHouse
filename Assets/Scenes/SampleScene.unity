@@ -264,6 +264,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
+      propertyPath: _dushMaxSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
+      propertyPath: _moveMaxSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
+      propertyPath: _dushAcceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
+      propertyPath: _moveAcceleration
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7640051891888093189, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
       propertyPath: m_Name
       value: Symphony
@@ -533,7 +549,7 @@ TerrainCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1944877338}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4369877e199712f41b85215263a50f61, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
