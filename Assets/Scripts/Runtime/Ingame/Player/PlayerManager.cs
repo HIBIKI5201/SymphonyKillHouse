@@ -18,8 +18,6 @@ namespace KillHouse.Runtime.Ingame
         private static readonly int AnimJump = Animator.StringToHash("Jump");
         private static readonly int AnimOnGround = Animator.StringToHash("OnGround");
 
-        private const string LAYER_GROUND_NAME = "Ground";
-
         [SerializeField] private float _moveAcceleration = 3;
         [FormerlySerializedAs("_dushAcceleration")] [SerializeField] private float _dashAcceleration = 3;
         [SerializeField] private float _moveMaxSpeed = 5f;
@@ -90,7 +88,7 @@ namespace KillHouse.Runtime.Ingame
 
         private void OnCollisionEnter(Collision other)
         {
-            if (other.gameObject.CompareTag(LAYER_GROUND_NAME))
+            if (other.gameObject.CompareTag(TagsEnum.Ground.ToString()))
             {
                 _collisionGroundCount++;
                 if (0 < _collisionGroundCount)
@@ -103,7 +101,7 @@ namespace KillHouse.Runtime.Ingame
 
         private void OnCollisionExit(Collision other)
         {
-            if (other.gameObject.CompareTag(LAYER_GROUND_NAME))
+            if (other.gameObject.CompareTag(TagsEnum.Ground.ToString()))
             {
                 _collisionGroundCount--;
                 if (_collisionGroundCount <= 0)
