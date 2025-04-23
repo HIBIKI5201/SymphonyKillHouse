@@ -114,12 +114,19 @@ namespace KillHouse.Runtime.Ingame
             if (!_onGround) return;
             if (!_isMove) return;
 
-            var speed = _isSprint && 0.7071f < _moveInput.y ? _dushMaxSpeed : _moveMaxSpeed;
-
-            var dir = transform.TransformDirection(
-                new Vector3(_moveInput.x, 0, _moveInput.y)) * speed;
-
-            _rigidbody.AddForce(dir, ForceMode.Force);
+            var isDush = _isSprint && 0.7071f < _moveInput.y;
+            
+            var acceleration = isDush ? _dushAcceleration : _moveAcceleration;
+            var force = transform.TransformDirection(
+                new Vector3(_moveInput.x, 0, _moveInput.y)) * acceleration;
+            _rigidbody.AddForce(force, ForceMode.Acceleration);
+            
+            //速度がMaxSpeedを超えた場合に制限する
+            var maxVelocity = isDush ? _dushMaxSpeed : _moveMaxSpeed;
+            if (_rigidbody.linearVelocity.sqrMagnitude > maxVelocity * maxVelocity)
+            {
+                _rigidbody.linearVelocity = _rigidbody.linearVelocity.normalized * maxVelocity;
+            }
         }
 
         /// <summary>
