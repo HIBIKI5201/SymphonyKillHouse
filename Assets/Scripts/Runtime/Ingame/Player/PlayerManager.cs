@@ -4,7 +4,6 @@ using KillHouse.Runtime.System;
 using SymphonyFrameWork.System;
 using SymphonyFrameWork.Utility;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 namespace KillHouse.Runtime.Ingame
@@ -20,11 +19,13 @@ namespace KillHouse.Runtime.Ingame
 
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _dushSpeed = 8f;
-        [SerializeField] private float _lookSpeed = 3f;
+        [SerializeField] private float _jumpPower = 8f;
+
+        [Space] [SerializeField] private float _lookSpeed = 3f;
+
+        private Animator _animator;
 
         private InputBuffer _inputBuffer;
-        private Animator _animator;
-        private Rigidbody _rigidbody;
 
         private bool _isMove;
 
@@ -33,6 +34,7 @@ namespace KillHouse.Runtime.Ingame
         private CancellationTokenSource _moveTaskToken;
 
         private bool _onGround;
+        private Rigidbody _rigidbody;
 
         private void Awake()
         {
@@ -52,11 +54,11 @@ namespace KillHouse.Runtime.Ingame
 
             //攻撃入力
             _inputBuffer.Attack.started += OnAttack;
-            
+
             _inputBuffer.Look.started += OnLook;
             _inputBuffer.Look.performed += OnLook;
             _inputBuffer.Look.canceled += OnLook;
-            
+
             _inputBuffer.Jump.started += OnJump;
 
             _inputBuffer.Sprint.started += OnSprint;
@@ -72,6 +74,11 @@ namespace KillHouse.Runtime.Ingame
             MoveUpdate();
         }
 
+        private void OnDestroy()
+        {
+            Dispose();
+        }
+
         private void OnCollisionEnter(Collision other)
         {
             _onGround = true;
@@ -84,19 +91,33 @@ namespace KillHouse.Runtime.Ingame
             _animator.SetBool(AnimOnGround, false);
         }
 
+        public void Dispose()
+        {
+            _inputBuffer.Move.started -= OnMove;
+            _inputBuffer.Move.performed -= OnMove;
+            _inputBuffer.Move.canceled -= OnMove;
+
+            _inputBuffer.Look.started -= OnLook;
+            _inputBuffer.Look.performed -= OnLook;
+            _inputBuffer.Look.canceled -= OnLook;
+
+            _inputBuffer.Sprint.started -= OnSprint;
+            _inputBuffer.Sprint.canceled -= OnSprint;
+
+            Debug.Log($"{name}を解放しました。");
+        }
+
         private void MoveUpdate()
         {
-            if (_isMove)
-                //NavMeshから移動場所を選定
-            {
-                var speed = _isSprint && 0.7071f < _moveInput.y ?
-                    _dushSpeed : _moveSpeed;
-                
-                var dir = transform.TransformDirection(
-                    new Vector3(_moveInput.x, 0, _moveInput.y)) * speed;
-                
-                _rigidbody.AddForce(dir, ForceMode.Force);
-            }
+            if (!_onGround) return;
+            if (!_isMove) return;
+
+            var speed = _isSprint && 0.7071f < _moveInput.y ? _dushSpeed : _moveSpeed;
+
+            var dir = transform.TransformDirection(
+                new Vector3(_moveInput.x, 0, _moveInput.y)) * speed;
+
+            _rigidbody.AddForce(dir, ForceMode.Force);
         }
 
         /// <summary>
@@ -161,6 +182,8 @@ namespace KillHouse.Runtime.Ingame
         /// <param name="context"></param>
         private void OnJump(InputAction.CallbackContext context)
         {
+            _rigidbody.AddForce(new Vector3(0, _jumpPower, 0), ForceMode.Impulse);
+
             _animator.SetTrigger(AnimJump);
         }
 
@@ -183,27 +206,6 @@ namespace KillHouse.Runtime.Ingame
             }
 
             _animator.SetBool(AnimSprint, _isSprint);
-        }
-
-        private void OnDestroy()
-        {
-            Dispose();
-        }
-
-        public void Dispose()
-        {
-            _inputBuffer.Move.started -= OnMove;
-            _inputBuffer.Move.performed -= OnMove;
-            _inputBuffer.Move.canceled -= OnMove;
-
-            _inputBuffer.Look.started -= OnLook;
-            _inputBuffer.Look.performed -= OnLook;
-            _inputBuffer.Look.canceled -= OnLook;
-
-            _inputBuffer.Sprint.started -= OnSprint;
-            _inputBuffer.Sprint.canceled -= OnSprint;
-            
-            Debug.Log($"{name}を解放しました。");
         }
     }
 }
