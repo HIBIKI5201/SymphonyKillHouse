@@ -264,33 +264,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
-      propertyPath: _dushSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
-      propertyPath: _lookSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3147829596811349583, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
-      propertyPath: _moveSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6886014280153659067, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6886014280153659067, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6886014280153659067, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7640051891888093189, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
       propertyPath: m_Name
       value: Symphony
+      objectReference: {fileID: 0}
+    - target: {fileID: 9060379845910921526, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
+      propertyPath: m_Drag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9060379845910921526, guid: 97e7aee71f42c4741a87c51f50e96420, type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
