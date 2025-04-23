@@ -28,6 +28,7 @@ namespace KillHouse.Runtime.Ingame
         [Space] [SerializeField] private float _lookSpeed = 3f;
 
         private Animator _animator;
+        private Rigidbody _rigidbody;
 
         private InputBuffer _inputBuffer;
 
@@ -37,8 +38,9 @@ namespace KillHouse.Runtime.Ingame
         private Vector2 _moveInput = Vector2.zero;
         private CancellationTokenSource _moveTaskToken;
 
-        private bool _onGround = true;
-        private Rigidbody _rigidbody;
+        private bool _onGround;
+        private byte _collisionGroundCount;
+        
 
         private void Awake()
         {
@@ -89,8 +91,12 @@ namespace KillHouse.Runtime.Ingame
         {
             if (other.gameObject.CompareTag(LAYER_GROUND_NAME))
             {
-                _onGround = true;
-                _animator.SetBool(AnimOnGround, true);
+                _collisionGroundCount++;
+                if (0 < _collisionGroundCount)
+                {
+                    _onGround = true;
+                    _animator.SetBool(AnimOnGround, true);
+                }
             }
         }
 
@@ -98,8 +104,12 @@ namespace KillHouse.Runtime.Ingame
         {
             if (other.gameObject.CompareTag(LAYER_GROUND_NAME))
             {
-                _onGround = false;
-                _animator.SetBool(AnimOnGround, false);
+                _collisionGroundCount--;
+                if (_collisionGroundCount <= 0)
+                {
+                    _onGround = false;
+                    _animator.SetBool(AnimOnGround, false);
+                }
             }
         }
 
