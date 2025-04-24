@@ -577,12 +577,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: c74c613fb0bffe84dbc770e31517dabf, type: 2}
     - target: {fileID: 4870552773557632513, guid: 7d5271b916766de438c2637a3acfe45c, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'J_Bip_R_LowerArm'\n\tTransform 'J_Bip_R_UpperArm'\n\tTransform
-        'J_Bip_L_UpperArm'\n\tTransform 'J_Bip_R_Hand'\n\tTransform 'J_Bip_L_Hand'\n\tTransform
-        'J_Bip_L_LowerArm'\n\tTransform 'J_Bip_R_LowerArm'\n\tTransform 'J_Bip_R_UpperArm'\n\tTransform
-        'J_Bip_L_UpperArm'\n\tTransform 'J_Bip_R_Hand'\n\tand more ..."
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5159078012444724336, guid: 7d5271b916766de438c2637a3acfe45c, type: 3}
       propertyPath: m_LocalScale.x
@@ -1818,7 +1813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5283283031581977372, guid: d6aaacc9a8182ac49b2a4e370c02d43c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
