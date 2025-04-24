@@ -211,13 +211,17 @@ namespace KillHouse.Runtime.Ingame
         ///     ジャンプ入力を受け取った時
         /// </summary>
         /// <param name="context"></param>
-        private void OnJump(InputAction.CallbackContext context)
+        private async void OnJump(InputAction.CallbackContext context)
         {
             if (!_onGround) return;
+
+            await Awaitable.FixedUpdateAsync();
+            
+            // ジャンプの挙動が静止時と運動時で違う問題がある
             
             _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0, _rigidbody.linearVelocity.z);
             _rigidbody.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
-
+            
             _animator.SetTrigger(AnimJump);
         }
 
