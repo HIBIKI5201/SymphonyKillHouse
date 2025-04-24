@@ -152,8 +152,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2993628814890578618}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.12136415, y: -0.33035874, z: -0.16278918, w: 0.92175573}
+  m_LocalPosition: {x: 0.071, y: 0.017, z: -0.041}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -161,38 +161,7 @@ Transform:
   - {fileID: 7530804499332098153}
   - {fileID: 8321352626150219225}
   m_Father: {fileID: 7431430235445833456}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3590556401503619973
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1150785281301965808}
-  m_Layer: 0
-  m_Name: Stock
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1150785281301965808
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3590556401503619973}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0.000000057601145, z: -0.000000057601152, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 99.999985, y: 100, z: 100}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6968433515572936052}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 6.672, y: -40.765, z: -22.512}
 --- !u!1 &5170062700598992761
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,13 +305,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5981105055971013645}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16829018, y: -0, z: -0, w: 0.9857375}
-  m_LocalPosition: {x: -0.4850006, y: 0.08450302, z: 0.01101542}
+  m_LocalRotation: {x: -0.43923986, y: 0.0051879794, z: 0.8783468, w: 0.18854244}
+  m_LocalPosition: {x: 0.0814, y: -0.0995, z: 0.3641}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2770853597762977326}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -10.064, y: -51.415, z: 160.624}
 --- !u!1 &6814889564041908144
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,7 +577,12 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: c74c613fb0bffe84dbc770e31517dabf, type: 2}
     - target: {fileID: 4870552773557632513, guid: 7d5271b916766de438c2637a3acfe45c, type: 3}
       propertyPath: m_WarningMessage
-      value: 
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'J_Bip_R_LowerArm'\n\tTransform 'J_Bip_R_UpperArm'\n\tTransform
+        'J_Bip_L_UpperArm'\n\tTransform 'J_Bip_R_Hand'\n\tTransform 'J_Bip_L_Hand'\n\tTransform
+        'J_Bip_L_LowerArm'\n\tTransform 'J_Bip_R_LowerArm'\n\tTransform 'J_Bip_R_UpperArm'\n\tTransform
+        'J_Bip_L_UpperArm'\n\tTransform 'J_Bip_R_Hand'\n\tand more ..."
       objectReference: {fileID: 0}
     - target: {fileID: 5159078012444724336, guid: 7d5271b916766de438c2637a3acfe45c, type: 3}
       propertyPath: m_LocalScale.x
@@ -1784,15 +1758,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4579612719276771722, guid: d6aaacc9a8182ac49b2a4e370c02d43c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.045
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 4579612719276771722, guid: d6aaacc9a8182ac49b2a4e370c02d43c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.045
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 4579612719276771722, guid: d6aaacc9a8182ac49b2a4e370c02d43c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.045
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 4579612719276771722, guid: d6aaacc9a8182ac49b2a4e370c02d43c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1838,12 +1812,17 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5283283031581977372, guid: d6aaacc9a8182ac49b2a4e370c02d43c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5283283031581977372, guid: d6aaacc9a8182ac49b2a4e370c02d43c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4579612719276771722, guid: d6aaacc9a8182ac49b2a4e370c02d43c, type: 3}
-      insertIndex: 6
-      addedObject: {fileID: 1150785281301965808}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6aaacc9a8182ac49b2a4e370c02d43c, type: 3}
 --- !u!4 &6968433515572936052 stripped
