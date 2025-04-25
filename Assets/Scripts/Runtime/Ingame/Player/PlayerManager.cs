@@ -143,11 +143,14 @@ namespace KillHouse.Runtime.Ingame
                 new Vector3(_moveInput.x, 0, _moveInput.y)) * acceleration;
             _rigidbody.AddForce(force, ForceMode.Force);
             
-            //速度がMaxSpeedを超えた場合に制限する
+            //水平の速度がMaxSpeedを超えた場合に制限する
             var maxVelocity = isDash ? _dushMaxSpeed : _moveMaxSpeed;
-            if (_rigidbody.linearVelocity.sqrMagnitude > maxVelocity * maxVelocity)
+            var velocityXZ = new Vector2(_rigidbody.linearVelocity.x, _rigidbody.linearVelocity.z);
+            
+            if (velocityXZ.sqrMagnitude > maxVelocity * maxVelocity)
             {
-                _rigidbody.linearVelocity = _rigidbody.linearVelocity.normalized * maxVelocity;
+                velocityXZ = velocityXZ.normalized * maxVelocity;
+                _rigidbody.linearVelocity = new Vector3(velocityXZ.x, _rigidbody.linearVelocity.y, velocityXZ.y);
             }
         }
 
@@ -226,9 +229,7 @@ namespace KillHouse.Runtime.Ingame
         {
             if (!_jump) return;
             _jump = false;
-            
-            // ジャンプの挙動が静止時と運動時で違う問題がある
-            
+
             _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0, _rigidbody.linearVelocity.z);
             _rigidbody.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
             
@@ -258,7 +259,8 @@ namespace KillHouse.Runtime.Ingame
 
         private void OnGUI()
         {
-             GUI.Label(new Rect(0,0,100,300), _rigidbody.linearVelocity.ToString());
+            float velocityXZ = new Vector2(_rigidbody.linearVelocity.x, _rigidbody.linearVelocity.z).magnitude;
+             GUI.Label(new Rect(0,0,100,300), velocityXZ.ToString());
         }
     }
 }
