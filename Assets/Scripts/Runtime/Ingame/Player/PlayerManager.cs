@@ -37,6 +37,8 @@ namespace KillHouse.Runtime.Ingame
         private Vector2 _moveInput = Vector2.zero;
         private CancellationTokenSource _moveTaskToken;
 
+        private bool _jump;
+
         private bool _onGround;
         private byte _collisionGroundCount;
         
@@ -79,6 +81,7 @@ namespace KillHouse.Runtime.Ingame
         private void FixedUpdate()
         {
             MoveFixedUpdate();
+            JumpFixedUpdate();
         }
 
         private void OnDestroy()
@@ -134,10 +137,11 @@ namespace KillHouse.Runtime.Ingame
 
             var isDash = _isSprint && 0.7071f < _moveInput.y && _onGround;
             
+            
             var acceleration = isDash ? _dashAcceleration : _moveAcceleration;
             var force = transform.TransformDirection(
                 new Vector3(_moveInput.x, 0, _moveInput.y)) * acceleration;
-            _rigidbody.AddForce(force, ForceMode.Acceleration);
+            _rigidbody.AddForce(force, ForceMode.Force);
             
             //速度がMaxSpeedを超えた場合に制限する
             var maxVelocity = isDash ? _dushMaxSpeed : _moveMaxSpeed;
@@ -214,8 +218,14 @@ namespace KillHouse.Runtime.Ingame
         private async void OnJump(InputAction.CallbackContext context)
         {
             if (!_onGround) return;
+            
+            _jump = true;
+        }
 
-            await Awaitable.FixedUpdateAsync();
+        private void JumpFixedUpdate()
+        {
+            if (!_jump) return;
+            _jump = false;
             
             // ジャンプの挙動が静止時と運動時で違う問題がある
             
