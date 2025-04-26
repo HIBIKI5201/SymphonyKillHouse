@@ -137,7 +137,7 @@ namespace KillHouse.Runtime.Ingame
 
             var isDash = _isSprint && 0.7071f < _moveInput.y && _onGround;
             
-            
+            //水平方向に加速を与える
             var acceleration = isDash ? _dashAcceleration : _moveAcceleration;
             var force = transform.TransformDirection(
                 new Vector3(_moveInput.x, 0, _moveInput.y)) * acceleration;
