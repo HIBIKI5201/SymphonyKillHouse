@@ -451,7 +451,7 @@ MonoBehaviour:
   _dashAcceleration: 60
   _moveMaxSpeed: 8
   _dushMaxSpeed: 12
-  _jumpPower: 15
+  _jumpPower: 10
   _lookSpeed: 10
 --- !u!136 &30088872640337759
 CapsuleCollider:
